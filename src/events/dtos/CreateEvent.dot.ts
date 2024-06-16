@@ -4,5 +4,6 @@ export interface CreateEventDto {
     date:Date;
     location:string;
     duration:string;
+    city:string;
 }
   

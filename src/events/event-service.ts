@@ -1,7 +1,5 @@
-import mongoose from 'mongoose';
 import { CreateEventDto } from './dtos/CreateEvent.dot';
 import EventModel, { IEvent } from './models/Event';
-import { Event } from './types/response';
 
 
 
@@ -12,18 +10,22 @@ class EventService {
       return await EventModel.findById(id).exec();
     }
 
-    async getEvents(): Promise<IEvent[]> {
-      return await EventModel.find().exec(); 
+    async getEvents(page: number, limit: number, sortField: string, sortOrder: 'asc' | 'desc', city: undefined): Promise<IEvent[]> {
+      const skip = (page - 1) * limit;
+      const sort: { [key: string]: 1 | -1 } = { [sortField]: sortOrder === 'asc' ? 1 : -1 };
+      const events = await EventModel.find({ city }).sort(sort).skip(skip).limit(limit).exec();
+      return events;
     }
 
     async createEvent(createEventDto: CreateEventDto): Promise<IEvent> {
-      const { name, description, date, location ,duration} = createEventDto;
+      const { name, description, date, location ,duration,city} = createEventDto;
       const newEvent = new EventModel({
         name,
         description,
-        date: new Date(date),
+        date,
         location,
-        duration
+        duration,
+        city
       });
   
       await newEvent.save();

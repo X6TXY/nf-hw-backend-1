@@ -23,16 +23,18 @@ class EventController {
 
 
     getEvents = async (req: Request, res: Response): Promise<void> => {
-        try {
-          const events = await this.eventService.getEvents();
-          res.status(200).json(events);
-        } catch (error: any) {
-          res.status(500).send({ error: error.message });
-        }
+      try {
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 10;
+        const user = (req as any).user;
+        const sortField = (req.query.sortField as string) || 'date';
+        const sortOrder = (req.query.sortOrder as 'asc' | 'desc') || 'asc';
+        const events = await this.eventService.getEvents(page,limit,sortField,sortOrder,user.city); 
+        res.status(200).json({ events, page, limit });
+      } catch (error: any) {
+        res.status(500).send({ error: error.message });
       }
-
-    
-
+    };
 
     getEventById = async (req: Request, res: Response): Promise<void> => {
         try {

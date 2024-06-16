@@ -36,24 +36,24 @@ To get started with this project, follow these steps:
 
 ### Tasks
 
-- [ ] `GET` /api/events : get list of events
-- [ ] `GET` /api/events/:id : get exact event
-- [ ] `POST` /api/events : create a new event
+- [x] `GET` /api/events : get list of events
+- [x] `GET` /api/events/:id : get exact event
+- [x] `POST` /api/events : create a new event
 
 ## 🥈 Medium Level
 
 ### Tasks
 
-- [ ] Registration with indication of the city
-- [ ] Login
-- [ ] A list of events in the user's city is displayed in `/api/events` for an authorized user
+- [x] Registration with indication of the city
+- [x] Login
+- [x] A list of events in the user's city is displayed in `/api/events` for an authorized user
 
 ## 🥇 Hard Level
 
 ### Tasks
 
-- [ ] Add paginations
-- [ ] Sorting for `/api/events?sortBy=rating&sortDirection=desc`
+- [x] Add paginations
+- [x] Sorting for `/api/events?sortBy=rating&sortDirection=desc`
 
 ### 📂 Explanation of Structure
 

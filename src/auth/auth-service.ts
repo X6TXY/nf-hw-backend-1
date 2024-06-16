@@ -1,10 +1,9 @@
-import { CreateUserDto } from './dtos/CreateUser.dto';
-import { IUser } from './models/User';
-import UserModel from './models/User';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+import { CreateUserDto } from './dtos/CreateUser.dto';
 import RefreshTokenModel from './models/RefreshToken';
+import UserModel, { IUser } from './models/User';
 
 dotenv.config();
 
@@ -13,13 +12,14 @@ class AuthService {
   private readonly jwtRefreshSecret = process.env.JWT_REFRESH_SECRET!;
 
   async registerUser(createUserDto: CreateUserDto): Promise<IUser> {
-    const { email, password, username } = createUserDto;
+    const { email, password, username,city } = createUserDto;
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new UserModel({
       email,
       username,
       password: hashedPassword,
+      city
     });
 
     await newUser.save();
